@@ -2,19 +2,19 @@ package alexgimb.recipeapp.recipebook.model;
 
 import alexgimb.recipeapp.recipebook.service.IngredientService;
 
-import java.util.ArrayList;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Recipe {
     private final String name;
     private int cookingTime;
-    private ArrayList<Ingredient> ingredients;
-    private final ArrayList<String> cookingInstructions;
+    private List<Ingredient> ingredients;
+    private final List<String> cookingInstructions;
     private final int id;
     private static int counter = 0;
 
-    public Recipe(String name, int cookingTime, ArrayList<Ingredient> ingredients, ArrayList<String> cookingInstructions) {
+    public Recipe(String name, int cookingTime, List<Ingredient> ingredients, List<String> cookingInstructions) {
         this.name = name;
         this.cookingTime = cookingTime;
         setIngredients(ingredients);
@@ -34,11 +34,11 @@ public class Recipe {
         this.cookingTime = cookingTime;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         IngredientService ingredientService = new IngredientService();
         for (Ingredient ingredient : ingredients) {
             ingredientService.addIngredient(ingredient);
@@ -46,7 +46,7 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public ArrayList<String> getCookingInstructions() {
+    public List<String> getCookingInstructions() {
         return cookingInstructions;
     }
 

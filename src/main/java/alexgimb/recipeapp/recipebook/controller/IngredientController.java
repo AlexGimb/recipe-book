@@ -6,23 +6,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 @RestController
+@RequestMapping("/ingredient")
 public class IngredientController {
     private final IngredientService ingredientService;
 
     public IngredientController(IngredientService ingredientService) {
         this.ingredientService = ingredientService;
     }
-    @GetMapping("/ingredient")
+    @GetMapping
     public Collection<Ingredient> getAllIngredients() {
         return this.ingredientService.getAllIngredients();
     }
 
-    @PostMapping("/newingredient")
+    @PostMapping
     public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
         return this.ingredientService.addIngredient(ingredient);
     }
 
-    @DeleteMapping("/deleteingredient/{id}")
+    @DeleteMapping("/{id}")
     public Ingredient deleteIngredient(@PathVariable("id") int id) {
         return this.ingredientService.removeIngredient(id);
     }

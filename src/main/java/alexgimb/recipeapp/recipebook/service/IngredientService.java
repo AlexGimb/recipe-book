@@ -20,10 +20,10 @@ public class IngredientService {
     }
 
     public Ingredient removeIngredient(int id) {
-        if (ingredients.containsKey(id)) {
-            return ingredients.remove(id);
-        } else {
+        if (!ingredients.containsKey(id)) {
             throw new RuntimeException("Такой ингредиент не найден");
+        } else {
+            return ingredients.remove(id);
         }
     }
 

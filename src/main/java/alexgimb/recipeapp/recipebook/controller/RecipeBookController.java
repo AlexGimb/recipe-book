@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
+@RequestMapping("/recipe")
 public class RecipeBookController {
     private final RecipeService recipeService;
 
@@ -14,17 +15,17 @@ public class RecipeBookController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/recipe")
+    @GetMapping
     public Collection<Recipe> getAllRecipeBooks() {
         return this.recipeService.getAllRecipeBooks();
     }
 
-    @PostMapping("/newrecipe")
+    @PostMapping
     public Recipe addRecipe(@RequestBody Recipe recipe) {
         return this.recipeService.addRecipe(recipe);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Recipe deleteRecipe(@PathVariable("id") int id) {
         return this.recipeService.removeRecipe(id);
     }

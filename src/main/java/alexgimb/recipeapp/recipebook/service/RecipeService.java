@@ -24,11 +24,10 @@ public class RecipeService {
     }
 
     public Recipe removeRecipe(int id) {
-        if (recipeBooks.containsKey(id)) {
-            return recipeBooks.remove(id);
-        }
-        else {
+        if (!recipeBooks.containsKey(id)) {
             throw new RuntimeException("Рецепт не найден!");
+        } else {
+            return recipeBooks.remove(id);
         }
     }
 }

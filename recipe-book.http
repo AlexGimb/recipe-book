@@ -1,11 +1,21 @@
 ### Получить список всех рецептов из книги
 GET http://localhost:8080/recipe
 
-### Получить список всех штгредиентов из книги
+### Получить список всех ингредиентов из книги
 GET http://localhost:8080/ingredient
 
+### Добавление нового ингредиента
+POST http://localhost:8080/ingredient
+Content-Type: application/json
+
+{
+  "name": "Творог",
+  "count": 350,
+  "unit": "гр."
+}
+
 ### Добавление нового рецепта
-POST http://localhost:8080/newrecipe
+POST http://localhost:8080/recipe
 Content-Type: application/json
 
  {
@@ -44,7 +54,7 @@ Content-Type: application/json
   }
 
 ### Добавление нового рецепта
-POST http://localhost:8080/newrecipe
+POST http://localhost:8080/recipe
 Content-Type: application/json
 
   {
@@ -77,7 +87,7 @@ Content-Type: application/json
         "unit": "мл."
       },
       {
-        "name": "Рукола",
+        "name": "Руккола",
         "count": 100,
         "unit": "гр."
       },
@@ -100,7 +110,7 @@ Content-Type: application/json
   }
 
 ### Добавление нового рецепта
-POST http://localhost:8080/newrecipe
+POST http://localhost:8080/recipe
 Content-Type: application/json
 
   {
@@ -167,7 +177,7 @@ Content-Type: application/json
   }
 
 ### Добавление нового рецепта
-POST http://localhost:8080/newrecipe
+POST http://localhost:8080/recipe
 Content-Type: application/json
 
   {
@@ -220,7 +230,7 @@ Content-Type: application/json
   }
 
 ### Добавление нового рецепта
-POST http://localhost:8080/newrecipe
+POST http://localhost:8080/recipe
 Content-Type: application/json
 
   {
@@ -273,4 +283,4 @@ Content-Type: application/json
   }
 
 ### Удаление рецепта
-DELETE http://localhost:8080/delete/0
+DELETE http://localhost:8080/recipe/0
