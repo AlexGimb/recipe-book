@@ -1,6 +1,6 @@
 package alexgimb.recipeapp.recipebook.controller;
 
-import alexgimb.recipeapp.recipebook.model.Ingredient;
+import alexgimb.recipeapp.recipebook.model.Recipe;
 import alexgimb.recipeapp.recipebook.service.IngredientService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,17 +14,17 @@ public class IngredientController {
         this.ingredientService = ingredientService;
     }
     @GetMapping
-    public Collection<Ingredient> getAllIngredients() {
+    public Collection<Recipe> getAllIngredients() {
         return this.ingredientService.getAllIngredients();
     }
 
     @PostMapping
-    public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
+    public Recipe addIngredient(@RequestBody Recipe ingredient) {
         return this.ingredientService.addIngredient(ingredient);
     }
 
     @DeleteMapping("/{id}")
-    public Ingredient deleteIngredient(@PathVariable("id") int id) {
+    public Recipe deleteIngredient(@PathVariable("id") int id) {
         return this.ingredientService.removeIngredient(id);
     }
 }

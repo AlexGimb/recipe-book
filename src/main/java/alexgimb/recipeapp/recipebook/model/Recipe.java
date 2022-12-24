@@ -1,8 +1,5 @@
 package alexgimb.recipeapp.recipebook.model;
 
-import alexgimb.recipeapp.recipebook.service.IngredientService;
-
-
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +14,7 @@ public class Recipe {
     public Recipe(String name, int cookingTime, List<Ingredient> ingredients, List<String> cookingInstructions) {
         this.name = name;
         this.cookingTime = cookingTime;
-        setIngredients(ingredients);
+        this.ingredients = ingredients;
         this.cookingInstructions = cookingInstructions;
         this.id = counter++;
     }
@@ -39,10 +36,6 @@ public class Recipe {
     }
 
     public void setIngredients(List<Ingredient> ingredients) {
-        IngredientService ingredientService = new IngredientService();
-        for (Ingredient ingredient : ingredients) {
-            ingredientService.addIngredient(ingredient);
-        }
         this.ingredients = ingredients;
     }
 
