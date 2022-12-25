@@ -9,12 +9,6 @@ import java.util.Map;
 @Service
 public class RecipeServiceImpl implements RecipeService {
     private final Map <Integer, Recipe> recipeBooks = new HashMap<>();
-    private final IngredientServiceImpl ingredientService;
-
-    public RecipeServiceImpl(IngredientServiceImpl ingredientService) {
-        this.ingredientService = ingredientService;
-    }
-
     @Override
     public Collection <Recipe> getAllRecipeBooks() {
         return recipeBooks.values();
