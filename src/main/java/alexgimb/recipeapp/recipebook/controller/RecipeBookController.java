@@ -2,16 +2,16 @@ package alexgimb.recipeapp.recipebook.controller;
 
 
 import alexgimb.recipeapp.recipebook.model.Recipe;
-import alexgimb.recipeapp.recipebook.service.RecipeService;
+import alexgimb.recipeapp.recipebook.service.RecipeServiceImpl;
 import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("/recipe")
 public class RecipeBookController {
-    private final RecipeService recipeService;
+    private final RecipeServiceImpl recipeService;
 
-    public RecipeBookController(RecipeService recipeService) {
+    public RecipeBookController(RecipeServiceImpl recipeService) {
         this.recipeService = recipeService;
     }
 
