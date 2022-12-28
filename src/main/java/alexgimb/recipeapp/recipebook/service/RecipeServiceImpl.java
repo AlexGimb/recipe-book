@@ -1,35 +1,62 @@
 package alexgimb.recipeapp.recipebook.service;
 import alexgimb.recipeapp.recipebook.model.Recipe;
 import org.springframework.stereotype.Service;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.*;
 
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    private final Map <Integer, Recipe> recipeBooks = new HashMap<>();
+    public static final Map <Integer, Recipe> recipeBooks = new HashMap<>();
+    private static int recipeId = 0;
+
     @Override
-    public Collection <Recipe> getAllRecipeBooks() {
-        return recipeBooks.values();
+    public Set<Map.Entry<Integer, Recipe>> getAllRecipeBooks() {
+        return recipeBooks.entrySet();
     }
 
     @Override
     public Recipe addRecipe(Recipe recipe) {
-        if (recipeBooks.containsValue(recipe)) {
-            throw new RuntimeException("Такой рецепт уже существует");
-        } else {
-            recipeBooks.put(recipe.getId(), recipe);
+        try {
+            if (recipeBooks.containsValue(recipe)) {
+                throw new RuntimeException("Такой рецепт уже существует");
+            } else {
+                recipeBooks.put(recipeId++, recipe);
+            }
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
         }
         return recipe;
     }
 
     @Override
-    public Recipe removeRecipe(int id) {
-        if (!recipeBooks.containsKey(id)) {
-            throw new RuntimeException("Рецепт не найден!");
-        } else {
-            return recipeBooks.remove(id);
+    public Recipe searchRecipe(int id) {
+        Recipe search = null;
+        try {
+            if (!recipeBooks.containsKey(id)) {
+                throw new RuntimeException("Рецепт не найден!");
+            } else {
+                search = recipeBooks.get(id);
+            }
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
         }
+        return search;
+    }
+
+    @Override
+    public Recipe removeRecipe(int id) {
+        Recipe remove = null;
+        try {
+            if (!recipeBooks.containsKey(id)) {
+                throw new RuntimeException("Рецепт не найден!");
+            } else {
+                remove = recipeBooks.remove(id);
+            }
+        }catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+        return remove;
     }
 }
+

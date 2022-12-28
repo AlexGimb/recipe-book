@@ -8,15 +8,10 @@ public class Ingredient {
     private int count;
     private String unit;
 
-    private final int id;
-
-    private static int counter = 0;
-
     public Ingredient(String name, int count, String unit) {
         this.name = name;
         this.count = count;
         this.unit = unit;
-        this.id = counter++;
     }
 
     public String getName() {
@@ -37,18 +32,6 @@ public class Ingredient {
 
     public void setUnit(String unit) {
         this.unit = unit;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public static int getCounter() {
-        return counter;
-    }
-
-    public static void setCounter(int counter) {
-        Ingredient.counter = counter;
     }
 
     @Override

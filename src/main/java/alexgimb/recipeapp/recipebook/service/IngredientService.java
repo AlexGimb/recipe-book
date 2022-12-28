@@ -1,14 +1,18 @@
 package alexgimb.recipeapp.recipebook.service;
 
+import alexgimb.recipeapp.recipebook.model.Ingredient;
 import alexgimb.recipeapp.recipebook.model.Recipe;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface IngredientService {
+    Set<Map.Entry<Integer, Ingredient>> getAllIngredientBooks();
 
-    Recipe addIngredient(Recipe ingredient);
+    Ingredient searchIngredient(int id);
 
-    Recipe removeIngredient(int id);
+    List<Recipe> searchRecipeByIngredient(int id);
 
-    public Collection<Recipe> getAllIngredients();
+    Ingredient removeIngredient(int id);
 }

@@ -1,10 +1,14 @@
 package alexgimb.recipeapp.recipebook.controller;
 
+import alexgimb.recipeapp.recipebook.model.Ingredient;
 import alexgimb.recipeapp.recipebook.model.Recipe;
 import alexgimb.recipeapp.recipebook.service.IngredientServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientController {
@@ -13,18 +17,19 @@ public class IngredientController {
     public IngredientController(IngredientServiceImpl ingredientService) {
         this.ingredientService = ingredientService;
     }
+
     @GetMapping
-    public Collection<Recipe> getAllIngredients() {
-        return this.ingredientService.getAllIngredients();
+    public Collection<Map.Entry<Integer, Ingredient>> allIngredient() {
+        return ingredientService.getAllIngredientBooks();
     }
 
-    @PostMapping
-    public Recipe addIngredient(@RequestBody Recipe ingredient) {
-        return this.ingredientService.addIngredient(ingredient);
+    @GetMapping("search/{id}")
+    public List<Recipe> searchRecipeForIngredient(@PathVariable("id") int id) {
+        return this.ingredientService.searchRecipeByIngredient(id);
     }
 
     @DeleteMapping("/{id}")
-    public Recipe deleteIngredient(@PathVariable("id") int id) {
+    public Ingredient deleteRecipe(@PathVariable("id") int id) {
         return this.ingredientService.removeIngredient(id);
     }
 }

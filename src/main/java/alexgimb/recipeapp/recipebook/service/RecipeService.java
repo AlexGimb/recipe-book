@@ -2,12 +2,15 @@ package alexgimb.recipeapp.recipebook.service;
 
 import alexgimb.recipeapp.recipebook.model.Recipe;
 
-import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 public interface RecipeService {
-    public abstract Collection<Recipe> getAllRecipeBooks();
+    Set<Map.Entry<Integer, Recipe>> getAllRecipeBooks();
 
-    public abstract Recipe addRecipe(Recipe recipe);
+    Recipe addRecipe(Recipe recipe);
 
-    public abstract Recipe removeRecipe(int id);
+    Recipe searchRecipe(int id);
+
+    Recipe removeRecipe(int id);
 }

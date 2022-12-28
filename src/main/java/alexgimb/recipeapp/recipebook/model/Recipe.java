@@ -8,15 +8,12 @@ public class Recipe {
     private int cookingTime;
     private List<Ingredient> ingredients;
     private final List<String> cookingInstructions;
-    private final int id;
-    private static int counter = 0;
 
     public Recipe(String name, int cookingTime, List<Ingredient> ingredients, List<String> cookingInstructions) {
         this.name = name;
         this.cookingTime = cookingTime;
         this.ingredients = ingredients;
         this.cookingInstructions = cookingInstructions;
-        this.id = counter++;
     }
 
     public String getName() {
@@ -41,18 +38,6 @@ public class Recipe {
 
     public List<String> getCookingInstructions() {
         return cookingInstructions;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public static int getCounter() {
-        return counter;
-    }
-
-    public static void setCounter(int counter) {
-        Recipe.counter = counter;
     }
 
     @Override
