@@ -1,56 +1,14 @@
 package alexgimb.recipeapp.recipebook.model;
 
+import lombok.Data;
+
 import java.util.List;
 import java.util.Objects;
 
+@Data
 public class Recipe {
     private final String name;
     private int cookingTime;
     private List<Ingredient> ingredients;
     private final List<String> cookingInstructions;
-
-    public Recipe(String name, int cookingTime, List<Ingredient> ingredients, List<String> cookingInstructions) {
-        this.name = name;
-        this.cookingTime = cookingTime;
-        this.ingredients = ingredients;
-        this.cookingInstructions = cookingInstructions;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCookingTime() {
-        return cookingTime;
-    }
-
-    public void setCookingTime(int cookingTime) {
-        this.cookingTime = cookingTime;
-    }
-
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public List<String> getCookingInstructions() {
-        return cookingInstructions;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Recipe recipe = (Recipe) o;
-        return cookingTime == recipe.cookingTime && Objects.equals(name, recipe.name) && Objects.equals(ingredients, recipe.ingredients) && Objects.equals(cookingInstructions, recipe.cookingInstructions);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, cookingTime, ingredients, cookingInstructions);
-    }
 }
-

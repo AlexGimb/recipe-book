@@ -25,12 +25,16 @@ public class RecipeBookController {
     }
 
     @PostMapping
-    public Recipe addRecipe(@RequestBody Recipe recipe) throws RuntimeException {
-        this.recipeService.addRecipe(recipe);
-        return recipe;
+    public Recipe addRecipe(@RequestBody Recipe recipe) {
+        return this.recipeService.addRecipe(recipe);
     }
 
-    @DeleteMapping("/{id}")
+    @PutMapping("update/{id}")
+    public Recipe updateRecipe(@PathVariable("id") int id, @RequestBody Recipe recipe) {
+        return this.recipeService.updateRecipe(id, recipe);
+    }
+
+    @DeleteMapping("delete/{id}")
     public Recipe deleteRecipe(@PathVariable("id") int id) {
         return this.recipeService.removeRecipe(id);
     }

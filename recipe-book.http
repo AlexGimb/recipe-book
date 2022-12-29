@@ -275,8 +275,11 @@ GET http://localhost:8080/ingredient
 ### Поиск Рецепта
 GET http://localhost:8080/recipe/search/2
 
+### Поиск Ингредиента
+GET http://localhost:8080/ingredient/search/1
+
 ### Поиск рецепта по ингредиенту
-GET http://localhost:8080/ingredient/search/111
+GET http://localhost:8080/ingredient/search/recipe/1
 
 ### Удаление рецепта
 DELETE http://localhost:8080/recipe/1

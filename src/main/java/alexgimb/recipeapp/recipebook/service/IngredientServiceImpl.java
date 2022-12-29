@@ -23,6 +23,16 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    public Ingredient addIngredient(Ingredient ingredient) {
+        if (ingredientBooks.containsValue(ingredient)) {
+            throw new RecipeBookException("Такой ингредиент уже существует");
+        } else {
+            ingredientBooks.put(ingredientId++, ingredient);
+        }
+        return ingredient;
+    }
+
+    @Override
     public Ingredient searchIngredient(int id) {
         Ingredient search;
         if (!ingredientBooks.containsKey(id)) {
@@ -44,6 +54,16 @@ public class IngredientServiceImpl implements IngredientService {
             }
         }
         return search;
+    }
+
+    @Override
+    public Ingredient updateIngredient(int id, Ingredient ingredient) {
+        if (!ingredientBooks.containsKey(id)) {
+            throw new RecipeBookException("Такого ингредиента нет");
+        } else {
+            ingredientBooks.put(id, ingredient);
+        }
+        return ingredient;
     }
 
     @Override

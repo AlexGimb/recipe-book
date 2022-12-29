@@ -36,6 +36,16 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    public Recipe updateRecipe(int id, Recipe recipe) {
+        if (!recipeBooks.containsKey(id)) {
+            throw new RecipeBookException("Такого рецепта нет");
+        } else {
+            recipeBooks.put(id, recipe);
+        }
+        return recipe;
+    }
+
+    @Override
     public Recipe removeRecipe(int id) throws RuntimeException {
         Recipe remove = null;
         if (!recipeBooks.containsKey(id)) {

@@ -9,9 +9,13 @@ import java.util.Set;
 public interface IngredientService {
     Set<Map.Entry<Integer, Ingredient>> getAllIngredientBooks();
 
+    Ingredient addIngredient(Ingredient ingredient);
+
     Ingredient searchIngredient(int id);
 
     Recipe searchRecipeByIngredient(int id);
+
+    Ingredient updateIngredient(int id, Ingredient ingredient);
 
     Ingredient removeIngredient(int id);
 }

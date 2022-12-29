@@ -1,8 +1,11 @@
 package alexgimb.recipeapp.recipebook.model;
 
 
+import lombok.Data;
+
 import java.util.Objects;
 
+@Data
 public class Ingredient {
     private final String name;
     private int count;

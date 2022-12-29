@@ -22,12 +22,27 @@ public class IngredientController {
         return ingredientService.getAllIngredientBooks();
     }
 
-    @GetMapping("search/{id}")
+    @GetMapping("search/recipe/{id}")
     public Recipe searchRecipeForIngredient(@PathVariable("id") int id) {
         return this.ingredientService.searchRecipeByIngredient(id);
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("search/{id}")
+    public Ingredient searchIngredient(@PathVariable("id") int id) {
+        return this.ingredientService.searchIngredient(id);
+    }
+
+    @PostMapping
+    public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
+        return this.ingredientService.addIngredient(ingredient);
+    }
+
+    @PutMapping("update/{id}")
+    public Ingredient updateIngredient(@PathVariable("id") int id, @RequestBody Ingredient ingredient) {
+        return this.ingredientService.updateIngredient(id, ingredient);
+    }
+
+    @DeleteMapping("delete/{id}")
     public Ingredient deleteRecipe(@PathVariable("id") int id) {
         return this.ingredientService.removeIngredient(id);
     }
