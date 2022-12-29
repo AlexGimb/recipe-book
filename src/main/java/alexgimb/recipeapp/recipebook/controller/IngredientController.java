@@ -6,7 +6,6 @@ import alexgimb.recipeapp.recipebook.service.IngredientServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,7 +23,7 @@ public class IngredientController {
     }
 
     @GetMapping("search/{id}")
-    public List<Recipe> searchRecipeForIngredient(@PathVariable("id") int id) {
+    public Recipe searchRecipeForIngredient(@PathVariable("id") int id) {
         return this.ingredientService.searchRecipeByIngredient(id);
     }
 

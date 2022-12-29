@@ -25,12 +25,8 @@ public class RecipeBookController {
     }
 
     @PostMapping
-    public Recipe addRecipe(@RequestBody Recipe recipe) {
-        try {
-            this.recipeService.addRecipe(recipe);
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-        }
+    public Recipe addRecipe(@RequestBody Recipe recipe) throws RuntimeException {
+        this.recipeService.addRecipe(recipe);
         return recipe;
     }
 

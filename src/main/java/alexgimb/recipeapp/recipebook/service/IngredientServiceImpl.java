@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
 @Service
 public class IngredientServiceImpl implements IngredientService {
     public final Map<Integer, Ingredient> ingredientBooks = new HashMap<>();
@@ -27,7 +26,7 @@ public class IngredientServiceImpl implements IngredientService {
     public Ingredient searchIngredient(int id) {
         Ingredient search;
         if (!ingredientBooks.containsKey(id)) {
-            throw new RuntimeException("Рецепт с таким ингредиентом не найден!");
+            throw new RecipeBookException("Ингредиент не найден");
         } else {
             search = ingredientBooks.get(id);
         }
@@ -35,34 +34,25 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public List<Recipe> searchRecipeByIngredient(int id) {
-        List<Recipe> search = null;
-        try {
-            search = new ArrayList<>();
-            for (Recipe recipe : RecipeServiceImpl.recipeBooks.values()) {
-                for (Ingredient searchRecipe : recipe.getIngredients()) {
-                    if (searchRecipe.equals(searchIngredient(id))) {
-                        search.add(recipe);
-                    }
+    public Recipe searchRecipeByIngredient(int id) {
+        Recipe search = null;
+        for (Recipe recipe : RecipeServiceImpl.recipeBooks.values()) {
+            for (Ingredient searchRecipe : recipe.getIngredients()) {
+                if (searchRecipe.equals(searchIngredient(id))) {
+                    search = recipe;
                 }
             }
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
         }
         return search;
     }
 
     @Override
-    public Ingredient removeIngredient(int id) {
+    public Ingredient removeIngredient(int id) throws RuntimeException {
         Ingredient remove = null;
-        try {
-            if (!ingredientBooks.containsKey(id)) {
-                throw new RuntimeException("Такой ингредиент не найден");
-            } else {
-                remove = ingredientBooks.remove(id);
-            }
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+        if (!ingredientBooks.containsKey(id)) {
+            throw new RecipeBookException("Такой ингредиент не найден");
+        } else {
+            remove = ingredientBooks.remove(id);
         }
         return remove;
     }
