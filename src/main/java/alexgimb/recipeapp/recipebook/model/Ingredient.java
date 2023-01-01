@@ -1,8 +1,6 @@
 package alexgimb.recipeapp.recipebook.model;
 
-
 import lombok.Data;
-
 import java.util.Objects;
 
 @Data

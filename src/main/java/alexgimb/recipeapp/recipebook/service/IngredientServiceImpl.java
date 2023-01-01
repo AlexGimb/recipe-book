@@ -1,6 +1,7 @@
 package alexgimb.recipeapp.recipebook.service;
 import alexgimb.recipeapp.recipebook.model.Ingredient;
 import alexgimb.recipeapp.recipebook.model.Recipe;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -27,9 +28,13 @@ public class IngredientServiceImpl implements IngredientService {
         if (ingredientBooks.containsValue(ingredient)) {
             throw new RecipeBookException("Такой ингредиент уже существует");
         } else {
-            ingredientBooks.put(ingredientId++, ingredient);
+            if (StringUtils.isEmpty(ingredient.getName()) || StringUtils.isEmpty(ingredient.getUnit()) ||
+                    StringUtils.isBlank(ingredient.getName()) || StringUtils.isBlank(ingredient.getUnit()) ||
+                    ingredient.getCount() < 0) {
+                throw new RecipeBookException("Поля должны быть заполнены");
+            }
         }
-        return ingredient;
+        return ingredientBooks.put(ingredientId++, ingredient);
     }
 
     @Override

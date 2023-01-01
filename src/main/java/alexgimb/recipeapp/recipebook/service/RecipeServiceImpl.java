@@ -1,5 +1,6 @@
 package alexgimb.recipeapp.recipebook.service;
 import alexgimb.recipeapp.recipebook.model.Recipe;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,9 +20,12 @@ public class RecipeServiceImpl implements RecipeService {
         if (recipeBooks.containsValue(recipe)) {
             throw new RecipeBookException("Такой рецепт уже существует");
         } else {
-            recipeBooks.put(recipeId++, recipe);
+            if (StringUtils.isEmpty(recipe.getName()) || StringUtils.isBlank(recipe.getName()) ||
+                    recipe.getCookingTime() < 0) {
+                throw new RecipeBookException("Поля должны быть заполнены");
+            }
         }
-        return recipe;
+        return recipeBooks.put(recipeId++, recipe);
     }
 
     @Override
