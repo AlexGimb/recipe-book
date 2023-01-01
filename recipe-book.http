@@ -285,5 +285,5 @@ GET http://localhost:8080/ingredient/search/recipe/1
 DELETE http://localhost:8080/recipe/1
 
 ### Удаление ингредиента
-DELETE http://localhost:8080/ingredient/101
+DELETE http://localhost:8080/ingredient/
 
