@@ -1,14 +1,29 @@
 package alexgimb.recipeapp.recipebook.service;
 import alexgimb.recipeapp.recipebook.model.Recipe;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    public static final Map <Integer, Recipe> recipeBooks = new HashMap<>();
+
+    private final FileServiceImpl fileService;
+    public static Map <Integer, Recipe> recipeBooks = new HashMap<>();
     private static int recipeId = 0;
+
+    public RecipeServiceImpl(FileServiceImpl fileService) {
+        this.fileService = fileService;
+    }
+
+    @PostConstruct
+    private void init() {
+        readFile();
+    }
 
     @Override
     public Set<Map.Entry<Integer, Recipe>> getAllRecipeBooks() {
@@ -23,9 +38,12 @@ public class RecipeServiceImpl implements RecipeService {
             if (StringUtils.isEmpty(recipe.getName()) || StringUtils.isBlank(recipe.getName()) ||
                     recipe.getCookingTime() < 0) {
                 throw new RecipeBookException("Поля должны быть заполнены");
+            } else {
+                recipeBooks.put(recipeId++, recipe);
+                saveFile();
             }
         }
-        return recipeBooks.put(recipeId++, recipe);
+        return recipe;
     }
 
     @Override
@@ -45,6 +63,7 @@ public class RecipeServiceImpl implements RecipeService {
             throw new RecipeBookException("Такого рецепта нет");
         } else {
             recipeBooks.put(id, recipe);
+            saveFile();
         }
         return recipe;
     }
@@ -58,6 +77,25 @@ public class RecipeServiceImpl implements RecipeService {
             remove = recipeBooks.remove(id);
         }
         return remove;
+    }
+
+    private void saveFile() {
+        try {
+            String json = new ObjectMapper().writeValueAsString(recipeBooks);
+            fileService.saveFile(json);
+        } catch (JsonProcessingException e) {
+            throw new RecipeBookException("Ошибка сохранения файла");
+        }
+    }
+
+    public void readFile() {
+        try {
+            String json = fileService.readFromFile();
+            recipeBooks = new ObjectMapper().readValue(json, new TypeReference<HashMap<Integer, Recipe>>() {
+            });
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Ошибка чтения файла");
+        }
     }
 }
 
