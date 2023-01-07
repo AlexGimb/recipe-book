@@ -4,7 +4,6 @@ import alexgimb.recipeapp.recipebook.model.Recipe;
 import alexgimb.recipeapp.recipebook.service.RecipeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +26,10 @@ public class RecipeBookController {
         return this.recipeService.getAllRecipeBooks();
     }
 
+//    @GetMapping
+//    public String dataFile() {
+//        return this.recipeService.readFile();
+//    }
     @GetMapping("/search/{id}")
     @Operation(summary = "Поиск рецепта",
                 description = "Поиск добавленного в книгу рецепта по ID")

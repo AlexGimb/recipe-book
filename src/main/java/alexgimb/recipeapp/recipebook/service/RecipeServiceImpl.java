@@ -13,15 +13,16 @@ import java.util.*;
 public class RecipeServiceImpl implements RecipeService {
 
     private final FileServiceImpl fileService;
-    public static Map <Integer, Recipe> recipeBooks = new HashMap<>();
+    public static HashMap <Integer, Recipe> recipeBooks = new HashMap<>();
     private static int recipeId = 0;
+
 
     public RecipeServiceImpl(FileServiceImpl fileService) {
         this.fileService = fileService;
     }
 
     @PostConstruct
-    private void init() {
+    public void init() {
         readFile();
     }
 
@@ -48,7 +49,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe searchRecipe(int id) throws RuntimeException {
-        Recipe search = null;
+        Recipe search;
         if (!recipeBooks.containsKey(id)) {
             throw new RecipeBookException("Рецепт не найден!");
         } else {
@@ -70,7 +71,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe removeRecipe(int id) throws RuntimeException {
-        Recipe remove = null;
+        Recipe remove;
         if (!recipeBooks.containsKey(id)) {
             throw new RecipeBookException("Рецепт не найден!");
         } else {
@@ -82,7 +83,7 @@ public class RecipeServiceImpl implements RecipeService {
     private void saveFile() {
         try {
             String json = new ObjectMapper().writeValueAsString(recipeBooks);
-            fileService.saveFile(json);
+            fileService.saveFileRecipe(json);
         } catch (JsonProcessingException e) {
             throw new RecipeBookException("Ошибка сохранения файла");
         }
@@ -90,7 +91,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     public void readFile() {
         try {
-            String json = fileService.readFromFile();
+            String json = fileService.readFromFileRecipe();
             recipeBooks = new ObjectMapper().readValue(json, new TypeReference<HashMap<Integer, Recipe>>() {
             });
         } catch (JsonProcessingException e) {

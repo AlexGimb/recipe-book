@@ -1,10 +1,22 @@
 package alexgimb.recipeapp.recipebook.service;
 
+import java.io.File;
+
 public interface FileService {
-    boolean saveFile(String json);
 
+    boolean saveFileRecipe(String json);
 
-    String readFromFile();
+    boolean saveFileIngredient(String json);
 
-    boolean cleanFile();
+    String readFromFileRecipe();
+
+    String readFromFileIngredient();
+
+    boolean cleanFileRecipe();
+
+    boolean cleanFileIngredient();
+
+    File getDataFileRecipe();
+
+    File getDataFileIngredient();
 }
