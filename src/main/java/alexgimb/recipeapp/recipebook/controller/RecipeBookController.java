@@ -65,7 +65,10 @@ public class RecipeBookController {
     public Recipe deleteRecipe(@PathVariable("id") int id) {
         return this.recipeService.removeRecipe(id);
     }
+
     @GetMapping("/export")
+    @Operation(summary = "Экспорт рецептов",
+            description = "Скачивание всех рецептов из книги")
     public ResponseEntity<Object> downloadAllRecipe() {
         try {
             Path path = recipeService.createRecipePathReport();
