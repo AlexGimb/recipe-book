@@ -7,7 +7,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
+
+import static org.apache.commons.lang3.StringUtils.join;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -97,6 +104,27 @@ public class RecipeServiceImpl implements RecipeService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Ошибка чтения файла");
         }
+    }
+
+
+    public Path createRecipePathReport() throws IOException {
+        Path path = fileService.createTempFile("allRecipe");
+        for (Recipe recipe : recipeBooks.values()) {
+            try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
+                writer.append("Рецепт: " + recipe.getName() + "\n" +
+                        "Время приготовления: " + recipe.getCookingTime() + " минут" + "\n" +
+                        "Ингредиенты:" + "\n" +
+                        join(recipe.getIngredients(), "\n") + "\n" +
+                        "Инструкция по приготовлению:" + "\n" +
+                        join(recipe.getCookingInstructions(), "\n"));
+                writer.append("\n");
+                writer.append("\n");
+                writer.append("-----------------------------------------------------------------------");
+                writer.append("\n");
+                writer.append("\n");
+            }
+        }
+        return path;
     }
 }
 

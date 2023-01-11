@@ -50,5 +50,10 @@ public class Ingredient {
     public int hashCode() {
         return Objects.hash(name, count, unit);
     }
+
+    @Override
+    public String toString() {
+        return name + " " + count + " " + unit;
+    }
 }
 

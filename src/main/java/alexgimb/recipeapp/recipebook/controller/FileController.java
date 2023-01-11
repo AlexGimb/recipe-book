@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 
+
 @RestController
 @RequestMapping("/files")
 @Tag(name = "Импорт, экспорт файлов", description = "Импорт и экспорт файлов рецептов и ингредиентов")
@@ -40,6 +41,7 @@ public class FileController {
             return ResponseEntity.noContent().build();
         }
     }
+
     @GetMapping("/export/ingredient")
     @Operation(summary = "Экспорт ингредиентов",
             description = "Экспорт всех ингредиентов добавленных в книгу")
@@ -63,7 +65,7 @@ public class FileController {
         fileService.cleanFileRecipe();
         File dataFileRecipe = fileService.getDataFileRecipe();
 
-        try (FileOutputStream fos = new FileOutputStream(dataFileRecipe)){
+        try (FileOutputStream fos = new FileOutputStream(dataFileRecipe)) {
             IOUtils.copy(file.getInputStream(), fos);
             return ResponseEntity.ok().build();
         } catch (IOException e) {
@@ -78,7 +80,7 @@ public class FileController {
         fileService.cleanFileIngredient();
         File dataFileIngredient = fileService.getDataFileIngredient();
 
-        try (FileOutputStream fos = new FileOutputStream(dataFileIngredient)){
+        try (FileOutputStream fos = new FileOutputStream(dataFileIngredient)) {
             IOUtils.copy(file.getInputStream(), fos);
             return ResponseEntity.ok().build();
         } catch (IOException e) {
@@ -86,4 +88,6 @@ public class FileController {
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+
+
 }

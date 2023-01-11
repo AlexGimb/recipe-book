@@ -5,8 +5,18 @@ import alexgimb.recipeapp.recipebook.service.RecipeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,10 +36,6 @@ public class RecipeBookController {
         return this.recipeService.getAllRecipeBooks();
     }
 
-//    @GetMapping
-//    public String dataFile() {
-//        return this.recipeService.readFile();
-//    }
     @GetMapping("/search/{id}")
     @Operation(summary = "Поиск рецепта",
                 description = "Поиск добавленного в книгу рецепта по ID")
@@ -58,5 +64,23 @@ public class RecipeBookController {
     @Parameter(name = "id", example = "Введите ID рецепта")
     public Recipe deleteRecipe(@PathVariable("id") int id) {
         return this.recipeService.removeRecipe(id);
+    }
+    @GetMapping("/export")
+    public ResponseEntity<Object> downloadAllRecipe() {
+        try {
+            Path path = recipeService.createRecipePathReport();
+            if (Files.size(path) == 0) {
+                return ResponseEntity.notFound().build();
+            }
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(path.toFile()));
+            return ResponseEntity.ok().
+                    contentType(MediaType.TEXT_PLAIN).
+                    contentLength(Files.size(path)).
+                    header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"AllRecipes.txt\"").
+                    body(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(e.toString());
+        }
     }
 }
